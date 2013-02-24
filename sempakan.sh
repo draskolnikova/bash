@@ -20,11 +20,11 @@ strip=`hostname | sed "s/.in-hell.com//"`
           ;;
         "d")
           echo "[+] Download is in progress ..."
-          wget --user-agent=DraCoola/1.1 http://$3.dracoola.net/cpmove-$OPTARG.tar.gz -O /home/cpmove-$OPTARG.tar.gz > /dev/null
+          wget -q -nv --user-agent=DraCoola/1.1 http://$3.dracoola.net/cpmove-$OPTARG.tar.gz -O /home/cpmove-$OPTARG.tar.gz
           echo "[+] The backups sucessfully downloaded at /home/cpmove-$OPTARG.tar.gz"
           echo -n "[?] Do you want to restore the cpmove-$OPTARG.tar.gz? [Y/n] "; read yn
                 case $yn in
-                        [Yy]* ) echo "[+] Restoring account for $OPTARG is in progress ..."; /scripts/restorepkg $OPTARG > /dev/null;;
+                        [Yy]* ) echo "[+] Restoring account for $OPTARG is in progress ..."; /scripts/restorepkg $OPTARG > /dev/null; echo "[+] Restore account for $OPTARG complete!";;
                         [Nn]* ) echo "[!] Complete without restoring data"; exit;;
                         * ) echo "Default Answer (YES)"; /scripts/restorepkg $OPTARG > /dev/null;;
                 esac
