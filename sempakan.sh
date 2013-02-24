@@ -21,7 +21,7 @@ strip=`hostname | sed "s/.in-hell.com//"`
         "d")
           echo "[+] Download is in progress ..."
           wget -q -nv --user-agent=DraCoola/1.1 http://$3.dracoola.net/cpmove-$OPTARG.tar.gz -O /home/cpmove-$OPTARG.tar.gz
-          echo "[+] The backups sucessfully downloaded at /home/cpmove-$OPTARG.tar.gz"
+          echo "[+] The backups sucessfully downloaded at /home/cpmove-$OPTARG.tar.gz with `ll | grep /home/cpmove-$OPTARG.tar.gz | awk '{print $5}'` Mbytes"
           echo -n "[?] Do you want to restore the cpmove-$OPTARG.tar.gz? [Y/n] "; read yn
                 case $yn in
                         [Yy]* ) echo "[+] Restoring account for $OPTARG is in progress ..."; /scripts/restorepkg $OPTARG > /dev/null; echo "[+] Restore account for $OPTARG complete!";;
