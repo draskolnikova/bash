@@ -2,7 +2,7 @@
 owner="sempak:sempak"
 sempakan="/home/sempak/public_html/"
 strip=`hostname > /tmp/data`
-sed -i 's/.or.id//g' /tmp/data
+sed -i 's/.in-hell.com//g' /tmp/data
 
   while getopts "b:d:r:h:" options
     do
