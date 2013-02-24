@@ -9,7 +9,7 @@ sed -i 's/.or.id//g' /tmp/data
       case "$options" in
         "b")
           echo "[+] Creating backups user $OPTARG"
-          /scripts/pkgaccts $OPTARG
+          /scripts/pkgacct $OPTARG
           file="/home/cpmove-$OPTARG.tar.gz"
           echo "[+] Processing to dummy ..."
           chown $owner $file
