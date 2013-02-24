@@ -23,13 +23,11 @@ strip=`hostname | sed "s/.in-hell.com//"`
           wget --user-agent=DraCoola/1.1 http://$3.dracoola.net/cpmove-$OPTARG.tar.gz -O /home/cpmove-$OPTARG.tar.gz > /dev/null
           echo "[+] The backups sucessfully downloaded at /home/cpmove-$OPTARG.tar.gz"
           echo -n "[?] Do you want to restore the cpmove-$OPTARG.tar.gz? [Y/n] "; read yn
-		  echo "[+] Restoring account for $OPTARG"
                 case $yn in
-                        [Yy]* ) /scripts/restorepkg $OPTARG > /dev/null;;
-                        [Nn]* ) exit;;
+                        [Yy]* ) echo "[+] Restoring account for $OPTARG is in progress ..."; /scripts/restorepkg $OPTARG > /dev/null;;
+                        [Nn]* ) echo "[!] Complete without restoring data"; exit;;
                         * ) echo "Default Answer (YES)"; /scripts/restorepkg $OPTARG > /dev/null;;
                 esac
-          echo "[+] Complete"
           ;;
         "r")
 		  echo -n "[?] Do you want to restore the $OPTARG? [Y/n] "; read $yn
