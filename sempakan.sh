@@ -21,7 +21,7 @@ sed -i 's/.in-hell.com//g' /tmp/data
           ;;
         "d")
           echo "[+] Download is in progress ..."
-          wget --user-aget=DraCoola/1.1 http://$3.dracoola.net/cpmove-$OPTARG.tar.gz -O /home/cpmove-$OPTARG.tar.gz
+          wget --user-agent=DraCoola/1.1 http://$3.dracoola.net/cpmove-$OPTARG.tar.gz -O /home/cpmove-$OPTARG.tar.gz
           echo "[+] The backups sucessfully downloaded at /home/cpmove-$OPTARG.tar.gz"
           echo -n "[?] Do you want to restore the cpmove-$OPTARG.tar.gz? [Y/N] "; read yn
                 case $yn in
