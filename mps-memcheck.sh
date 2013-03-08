@@ -4,11 +4,11 @@
 # Put on crontab to monitor every minutes memory growth
 # * * * * * sh /path/to/mps-memcheck.sh
 
+HOST=`hostname | awk -F"." '{print $1}'`
 CRIT=`df -kh | grep cache | awk '{print $5}' | awk -F"%" '{print $1}'`
-TOT=`df -kh | grep cache | awk '{print $2}' | awk -F"." '{print $1}'`
 MNT=`mount | grep cache | awk '{print $6}' | awk -F"=" '{print $2}' | awk -F"m" '{print $1}'`
 NEW=`bc << EOF
-$TOT * (0.10*1024)
+$MNT * 0.10
 EOF
 `
 TOTAL=`bc << EOF
@@ -16,14 +16,20 @@ $MNT + $NEW
 EOF
 `
 
+CETAK=`echo $NEW | awk '{printf "%.0f\n", $1}'`
+CETAKTOT=`echo $TOTAL | awk '{printf "%.0f\n", $1}'`
+
 if [ $CRIT -gt "97" ]; then
-        echo "Cache dir critical :("
-        echo -n "Auto-resize enabled, added "
-        printf "%.0f" $(echo "scale=2;$NEW" | bc); echo "MB (10%) from "$MNT"MB to cache dir"
-        echo -n "Now cache dir resized to "
-        printf "%.0f" $(echo "scale=2;$TOTAL" | bc); echo ""
-        CETAK=`echo $NEW | awk '{printf "%.0f\n", $1}'`
-        mount -t tmpfs -o remount,size="$CETAK"m,uid=48,gid=48,mode=0755 tmpfs /var/cache/mod_pagespeed
+        rm -f /root/mps.log > /dev/null
+        # For twitter updates, check your pkgs here 
+        # https://github.com/tweepy/tweepy
+        python tweet.py "STATUS [ ${HOST^^} ] - Pagespeed CRITICAL on `date`"
+        echo "Cache dir critical on `date`" >> /root/mps.log
+        echo "Auto-resize enabled, added "$CETAK" MBytes (10%) from "$MNT" MBytes to cache dir" >> /root/mps.log
+        echo "Now cache dir resized to $CETAKTOT Mbytes" >> /root/mps.log
+        echo "Don't panic, it's cool bro! Your website traffic is great!" >> /root/mps.log
+        mount -t tmpfs -o remount,size="$CETAKTOT"m,uid=48,gid=48,mode=0755 tmpfs /var/cache/mod_pagespeed
+        python tweet.py "STATUS [ ${HOST^^} ] - Pagespeed RESOLVED on `date`"
 else
-      echo "Cache dir normal :)"
+      exit
 fi
