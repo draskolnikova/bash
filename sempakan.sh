@@ -15,7 +15,6 @@
 owner="sempak:sempak"
 sempakan="/home/sempak/public_html/"
 strip=`hostname | sed "s/.in-hell.com//"`
-domain=`cat /etc/trueuserdomains | grep $2 | awk {'print $2'}`
 
   while getopts "b:d:r:h:" options
     do
