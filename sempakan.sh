@@ -1,9 +1,10 @@
 #!/bin/bash
 # Gembalah cPanel Scripts - HOW TO
+# v0.2
 # /-------------------------------------------------------/
 # 
 # Backup cpanel account
-# $ gembalah -b <username>
+# $ gembalah -b <username/domain> 
 #
 # Download and restore cpanel account from remote server
 # $ gembalah -d <username> <server>
@@ -14,21 +15,40 @@
 owner="sempak:sempak"
 sempakan="/home/sempak/public_html/"
 strip=`hostname | sed "s/.in-hell.com//"`
+domain=`cat /etc/trueuserdomains | grep $2 | awk {'print $2'}`
 
   while getopts "b:d:r:h:" options
     do
       case "$options" in
         "b")
-          echo "[+] Creating backups user $OPTARG"
-          /scripts/pkgacct $OPTARG > /dev/null
-		  file="/home/cpmove-$OPTARG.tar.gz"
-		  echo "[+] Backups created on $file"
+          domain=`grep $OPTARG /etc/trueuserdomains | awk {'print $1'} | cut -d':' -f1`
+          acc=`grep $OPTARG /etc/trueuserdomains | awk {'print $2'}`
+          if [ "$OPTARG" == "$acc" ]; then
+                echo "[+] Creating full backups user $OPTARG"
+                /scripts/pkgacct $OPTARG > /dev/null
+                  file="/home/cpmove-$OPTARG.tar.gz"
+                  echo "[+] Backups created on $file"
           echo "[+] Processing to dummy ..."
           chown $owner $file > /dev/null
           chmod 644 $file > /dev/null
           mv $file $sempakan > /dev/null
           echo "[+] Success! http://$strip.dracoola.net/cpmove-$OPTARG.tar.gz"
           echo "[+] Do this on your remote server -> $0 -d $OPTARG $strip"
+          elif [ "$OPTARG" == "$domain" ]; then
+                echo "[+] Creating full backups domain $OPTARG"
+                /scripts/pkgacct $acc > /dev/null
+                  domfile="/home/cpmove-$acc.tar.gz"
+                  echo "[+] Backups created on $domfile"
+          echo "[+] Processing to dummy ..."
+          chown $owner $domfile > /dev/null
+          chmod 644 $domfile > /dev/null
+          mv $domfile $sempakan > /dev/null
+          echo "[+] Success! http://$strip.dracoola.net/cpmove-$acc.tar.gz"
+          echo "[+] Do this on your remote server -> $0 -d $acc $strip"
+          else
+              	echo "domain or account not exist, please check!"
+                exit 0
+	  fi
           ;;
         "d")
           echo "[+] Download is in progress ..."
@@ -56,7 +76,7 @@ strip=`hostname | sed "s/.in-hell.com//"`
           echo "Usage: $0 [OPTIONS]"
           echo " "
           echo "Options: "
-          echo "        -b <username>           Backup packages"
+          echo "        -b <username/domain>    Backup packages"
           echo "        -d <username> <string>  Download packages from another server"
           echo "        -help                   Display this Messages"
           echo "        -r <username>           Restore packages"
