@@ -75,10 +75,10 @@ strip=`hostname | sed "s/.in-hell.com//"`
           echo "Usage: $0 [OPTIONS]"
           echo " "
           echo "Options: "
-          echo "        -b <username/domain>    Backup packages"
-          echo "        -d <username> <string>  Download packages from another server"
-          echo "        -help                   Display this Messages"
-          echo "        -r <username>           Restore packages"
+          echo "        -b <username/domain>        Backup packages"
+          echo "        -d <username> <servername>  Download packages from another server"
+          echo "        -help                       Display this Messages"
+          echo "        -r <username>               Restore packages"
           ;;
       esac
     done
