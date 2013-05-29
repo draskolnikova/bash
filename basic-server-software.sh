@@ -19,7 +19,7 @@ php-mbstring.x86_64 \
 php-mcrypt.x86_64 \
 php-mysqlnd.x86_64 \
 php-pecl-imagick.x86_64 \
-php-php-gettext.x86_64 \
+php-php-gettext \
 php-xmlrpc.x86_64 \
 php-xml.x86_64 \
 php-fpm.x86_64";
