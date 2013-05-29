@@ -6,7 +6,7 @@ nginx \
 httpd-devel \
 httpd \
 vsftpd \
-phpMyAdmin.noarch;
+phpMyAdmin.noarch";
 atombase="mariadb-server.x86_64 \
 mariadb.x86_64 \
 mariadb-libs.x86_64 \

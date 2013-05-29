@@ -25,7 +25,7 @@ echo "[+] Disabling atomic repository, use --enablerepo instead"
 sed -i 's/enabled = 1/enabled = 0/g' /etc/yum.repos.d/atomic.repo
 echo "[+] Cleaning & caching new repository .."
 yum clean all > /dev/null
-yum make cache --enablerepo atomic > /dev/null
+yum makecache --enablerepo atomic > /dev/null
 echo "[+] Installing initialization software .."
 sh basic-server-software.sh
 echo "[+] Done! :-)"
