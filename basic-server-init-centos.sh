@@ -10,7 +10,10 @@ sed -i 's/=enforcing/=disabled/g' /etc/sysconfig/selinux > /dev/null
 epelchk=`rpm -qa | grep epel | wc -l`
 atomicchk=`rpm -qa | grep atomic | wc -l`
 echo "[+] Adding Nginx repository .."
-wget -q -nv https://raw.github.com/at-/bash/master/nginx.repo -O /etc/yum.repos.d/nginx.repo
+if [ ! -f /etc/yum.repos.d/nginx.repo ]; then
+	wget -q -nv https://raw.github.com/at-/bash/master/nginx.repo -O /etc/yum.repos.d/nginx.repo
+fi
+echo "[+] Nginx repository already exists!"
 echo "[+] Adding EPEL repository .."
 if [ $epelchk != 1 ];then
 	yum -y localinstall http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
