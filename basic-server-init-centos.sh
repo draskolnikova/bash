@@ -2,11 +2,9 @@
 # Basic Server Initialization
 # ~ting - 28/05/2013
 yum -y update
-init="wget nano yum-presto yum-plugin-security yum-plugin-protectbase dmidecode"
+init="wget nano yum-presto yum-plugin-security yum-plugin-protectbase dmidecode setroubleshoot-server"
 #initchk=`for i in $init; do rpm -qa | grep $i; done`
 yum -y install $init
-echo "[+] Disabling SELinux!"
-sed -i 's/=enforcing/=disabled/g' /etc/sysconfig/selinux > /dev/null
 epelchk=`rpm -qa | grep epel | wc -l`
 atomicchk=`rpm -qa | grep atomic | wc -l`
 echo "[+] Adding Nginx repository .."
