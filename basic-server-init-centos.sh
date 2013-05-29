@@ -1,7 +1,7 @@
 #!/bin/bash
 # Basic Server Initialization
 # ~ting - 28/05/2013
-yum -y udate
+yum -y update
 init="wget nano yum-presto yum-plugin-security yum-plugin-protectbase"
 #initchk=`for i in $init; do rpm -qa | grep $i; done`
 yum -y install $init
