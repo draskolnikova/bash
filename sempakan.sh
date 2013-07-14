@@ -12,9 +12,20 @@
 # Restore cpanel account
 # $ gembalah -r <username>
 # /-------------------------------------------------------/
+
+# Configure your requirements here
 owner="sempak:sempak"
 sempakan="/home/sempak/public_html/"
 strip=`hostname | sed "s/.in-hell.com//"`
+
+# Progress animation
+a=1
+sp="/-\|"
+echo -n ' '
+while true
+do
+    printf "\b${sp:a++%${#sp}:1}"
+done
 
   while getopts "b:d:r:h:" options
     do

@@ -1,0 +1,15 @@
+#!/bin/sh
+GIT_DIR=/home/git/repositories/comads-lintas-me.git
+refs=$(git log -1 --all | head -1 | awk '{print $2}')
+master=$(git show-ref master | awk '{print $1}')
+devel=$(git show-ref devel | awk '{print $1}')
+
+if [ $refs = $master ]; then
+        # updating production branch
+        GIT_WORK_TREE=/var/www/git-clone/comads.lintas.me/ git checkout -f master
+
+elif [ $refs = $devel ]; then
+        # updating development branch
+        GIT_WORK_TREE=/home/git/updater/repos.name git checkout -f devel
+fi
+exit 0
