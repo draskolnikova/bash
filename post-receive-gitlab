@@ -6,7 +6,7 @@ devel=$(git show-ref devel | awk '{print $1}')
 
 if [ $refs = $master ]; then
         # updating production branch
-        GIT_WORK_TREE=/var/www/git-clone/comads.lintas.me/ git checkout -f master
+        GIT_WORK_TREE=/var/www/git-clone/repos.name/ git checkout -f master
 
 elif [ $refs = $devel ]; then
         # updating development branch
