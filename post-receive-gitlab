@@ -1,5 +1,5 @@
 #!/bin/sh
-GIT_DIR=/home/git/repositories/comads-lintas-me.git
+GIT_DIR=/home/git/repositories/repositories-name.git
 refs=$(git log -1 --all | head -1 | awk '{print $2}')
 master=$(git show-ref master | awk '{print $1}')
 devel=$(git show-ref devel | awk '{print $1}')
